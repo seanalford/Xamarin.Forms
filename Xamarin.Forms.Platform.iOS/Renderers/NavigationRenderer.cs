@@ -229,6 +229,7 @@ namespace Xamarin.Forms.Platform.iOS
 
 			UpdateTint();
 			UpdateBarBackgroundColor();
+			UpdateBarBackground();
 			UpdateBarTextColor();
 			UpdateUseLargeTitles();
 			UpdateHideNavigationBarSeparator();
@@ -425,6 +426,10 @@ namespace Xamarin.Forms.Platform.iOS
 			else if (e.PropertyName == NavigationPage.BarBackgroundColorProperty.PropertyName)
 			{
 				UpdateBarBackgroundColor();
+			}
+			else if (e.PropertyName == NavigationPage.BarBackgroundProperty.PropertyName)
+			{
+				UpdateBarBackground();
 			}
 			else if (e.PropertyName == NavigationPage.BarTextColorProperty.PropertyName
 				  || e.PropertyName == StatusBarTextColorModeProperty.PropertyName)
@@ -629,6 +634,13 @@ namespace Xamarin.Forms.Platform.iOS
 				: barBackgroundColor.ToUIColor();
 		}
 
+		void UpdateBarBackground()
+		{
+			var barBackgroundBrush = NavPage.BarBackground;
+			var gradientImage = NavigationBar.GetGradientImage(barBackgroundBrush);
+			NavigationBar.SetBackgroundImage(gradientImage, UIBarMetrics.Default);
+		}
+
 		void UpdateBarTextColor()
 		{
 			var barTextColor = NavPage.BarTextColor;
@@ -667,7 +679,7 @@ namespace Xamarin.Forms.Platform.iOS
 			var statusBarColorMode = NavPage.OnThisPlatform().GetStatusBarTextColorMode();
 
 			// set Tint color (i. e. Back Button arrow and Text)
-			var iconColor = NavigationPage.GetIconColor(Current);
+			var iconColor = Current != null ? NavigationPage.GetIconColor(Current) : Color.Default;
 			if (iconColor.IsDefault)
 				iconColor = barTextColor;
 
