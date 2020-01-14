@@ -138,4 +138,24 @@
 	internal class _SwipeViewRenderer
 	{
 	}
+
+	internal class _EllipseRenderer
+	{
+	}
+
+	internal class _LineRenderer
+	{
+	}
+
+	internal class _RectRenderer
+	{
+	}
+
+	internal class _PolylineRenderer
+	{
+	}
+
+	internal class _PolygonRenderer
+	{
+	}
 }
