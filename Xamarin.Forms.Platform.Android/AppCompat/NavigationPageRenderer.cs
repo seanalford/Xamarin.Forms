@@ -383,6 +383,8 @@ namespace Xamarin.Forms.Platform.Android.AppCompat
 
 			if (e.PropertyName == NavigationPage.BarBackgroundColorProperty.PropertyName)
 				UpdateToolbar();
+			else if (e.PropertyName == NavigationPage.BarBackgroundProperty.PropertyName)
+				UpdateToolbar();
 			else if (e.PropertyName == NavigationPage.BarTextColorProperty.PropertyName)
 				UpdateToolbar();
 			else if (e.PropertyName == BarHeightProperty.PropertyName)
@@ -997,13 +999,18 @@ namespace Xamarin.Forms.Platform.Android.AppCompat
 				}
 			}
 
+			Brush tintBrush = Element.BarBackground;
+
+			if (tintBrush != null && !tintBrush.IsEmpty)
+				bar.UpdateBackground(tintBrush);
+
 			Color textColor = Element.BarTextColor;
 			if (!textColor.IsDefault)
 				bar.SetTitleTextColor(textColor.ToAndroid().ToArgb());
 
-			Color navIconColor = NavigationPage.GetIconColor(Current);
-			if(!navIconColor.IsDefault)
-				bar.NavigationIcon?.SetColorFilter(navIconColor.ToAndroid(), PorterDuff.Mode.SrcAtop);
+			//Color navIconColor = NavigationPage.GetIconColor(Current);
+			//if(!navIconColor.IsDefault)
+			//	bar.NavigationIcon?.SetColorFilter(navIconColor.ToAndroid(), PorterDuff.Mode.SrcAtop);
 
 			bar.Title = currentPage?.Title ?? string.Empty;
 
