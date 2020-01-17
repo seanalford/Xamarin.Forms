@@ -250,11 +250,17 @@ namespace Xamarin.Forms.Platform.iOS
 			ClipsToBounds = true;
 
 			if (Element.Content == null)
+			{
 				_contentView = CreateEmptyContent();
+				AddSubview(_contentView);
+			}
 			else
-				_contentView = CreateContent();
+			{
+				var content = Subviews.FirstOrDefault(v => v is Platform.DefaultRenderer);
 
-			AddSubview(_contentView);
+				if (content != null)
+					_contentView = content;
+			}
 		}
 
 		UIView CreateEmptyContent()
@@ -265,15 +271,6 @@ namespace Xamarin.Forms.Platform.iOS
 			};
 
 			return emptyContentView;
-		}
-
-		UIView CreateContent()
-		{
-			var formsElement = Element.Content;
-			var renderer = Platform.CreateRenderer(formsElement);
-			Platform.SetRenderer(formsElement, renderer);
-
-			return renderer?.NativeView;
 		}
 
 		bool HasSwipeItems()
@@ -838,7 +835,7 @@ namespace Xamarin.Forms.Platform.iOS
 			else
 			{
 				if (isHorizontal)
-					swipeThreshold = SwipeThreshold;
+					swipeThreshold = CalculateSwipeThreshold();
 				else
 				{
 					var contentHeight = _contentView.Frame.Height;
@@ -847,6 +844,18 @@ namespace Xamarin.Forms.Platform.iOS
 			}
 
 			return ValidateSwipeThreshold(swipeThreshold);
+		}
+
+		double CalculateSwipeThreshold()
+		{
+			if (_contentView != null)
+			{
+				var swipeThreshold = _contentView.Frame.Width * 0.8;
+
+				return swipeThreshold;
+			}
+
+			return SwipeThreshold;
 		}
 
 		double ValidateSwipeThreshold(double swipeThreshold)
