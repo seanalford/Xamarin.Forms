@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
-using Windows.UI.Xaml.Shapes;
+using WShape = Windows.UI.Xaml.Shapes.Shape;
 
 namespace Xamarin.Forms.Platform.UWP
 {
@@ -20,7 +20,7 @@ namespace Xamarin.Forms.Platform.UWP
 						DataContext = Element
 					};
 
-					rect.SetBinding(Shape.FillProperty, new Windows.UI.Xaml.Data.Binding { Converter = new ColorConverter(), Path = new PropertyPath("Color") });
+					rect.SetBinding(WShape.FillProperty, new Windows.UI.Xaml.Data.Binding { Converter = new ColorConverter(), Path = new PropertyPath("Color") });
 	
 					SetNativeControl(rect);
 				}
