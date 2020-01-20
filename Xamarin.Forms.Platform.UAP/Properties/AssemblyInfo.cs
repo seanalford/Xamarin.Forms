@@ -34,6 +34,7 @@ using Xamarin.Forms.Platform.UWP;
 [assembly: ExportRenderer(typeof(NativeViewWrapper), typeof(NativeViewWrapperRenderer))]
 [assembly: ExportRenderer(typeof(RefreshView), typeof(RefreshViewRenderer))]
 [assembly: ExportRenderer(typeof(Shell), typeof(ShellRenderer))]
+[assembly: ExportRenderer(typeof(Path), typeof(PathRenderer))]
 
 //ImageSources
 
