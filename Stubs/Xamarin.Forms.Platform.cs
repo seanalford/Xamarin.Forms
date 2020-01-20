@@ -170,6 +170,9 @@ namespace Xamarin.Forms.Platform
 
 	[RenderWith(typeof(SwipeViewRenderer))]
 	internal class _SwipeViewRenderer { }
+
+	[RenderWith(typeof(PathRenderer))]
+	internal class _PathRenderer { }
 }
 
 

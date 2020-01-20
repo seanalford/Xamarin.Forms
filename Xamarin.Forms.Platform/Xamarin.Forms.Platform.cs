@@ -138,4 +138,8 @@
 	internal class _SwipeViewRenderer
 	{
 	}
+
+	internal class _PathRenderer
+	{
+	}
 }
